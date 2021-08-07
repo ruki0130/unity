@@ -1,4 +1,4 @@
-using UnityEngine;
+using UnityEngine;    //引用unity引擎提供的API(unity engine 命名空間)
 
 public class Car : MonoBehaviour
 {
@@ -85,6 +85,7 @@ public class Car : MonoBehaviour
     //開始事件：播放遊戲時執行一次，處理初始化
     private void Start()
     {
+        #region 練習欄位
         //輸出(任何類型資料)
         print("knight test");
 
@@ -94,12 +95,84 @@ public class Car : MonoBehaviour
         windowsky = true;
         cc = 5000;
         weight = 9.9f;
+        #endregion
+
+        //呼叫方法語法：方法名稱()
+        Drive50();
+        Drive100();
+        Drive(150,"咻咻咻");           //呼叫時小刮號內的稱為引數(需填數字) 引數必須皆填滿
+        Drive(200,"轟轟轟");
+        Drive(300);                         //有預設值的參數( = "咻咻咻)"可以不用給引數(,"轟轟轟")
+
+        Drive(80, "碎石");               //時數8 0 音效碎石 特效 灰塵    __ 錯誤
+        Drive(90,effect: "碎石");    //時數9 0 音效咻咻咻 特效碎石  __ 正確
+        //使用多個預設值參數時可以使用 參數名稱:值
+        
+        float kg = KG();                 //區域變數_僅在此括號內使用
+        print("轉為公斤的資訊:" + kg);
+
+        print("BMI:" + BMI(60, 1.68f));  //直接將傳回方法當成值使用
     }
     
     //更新事件：大約一秒60次，60fps，處理物件移動或是監聽玩家輸入
     private void Update()
     {
         print("hi");
+    }
+    #endregion
+
+# region 方法method
+    //方法：實作比較複雜的行為，例如：汽車往前開、開啟汽車的音響並撥放音樂
+    //欄位語法：修飾詞 類型 名稱 指定 預設值;
+    //方法語法： 修飾詞 傳回類型 名稱 (參數)｛程式區塊｝(要半形)
+    //類型：void-無傳回
+    //定義方法：不會執行，必須呼叫-在事件內呼叫此方法
+    //維護性、擴充性
+    private void Drive50()
+    {
+        print("開車中50~");
+    }
+
+    private void Drive100()
+    {
+        print("開車中100~");
+    }
+    //參數語法：類型 參數名稱 - 寫在小括號裡 (僅在此方法可使用)
+    //參數1,參數2,參數3.....參數N(盡量保持5以內)
+    //參數預設：類型 參數名稱 指定 值
+    //預設值只能放在最右邊(int speed要放在有預設值的前面)
+    
+    /// <summary>
+    /// 這是開車的方法，可以用來調整車子的速度、音效與特效
+    /// </summary>
+    /// <param name="speed">速度</param>
+    /// <param name="sound">音效</param>
+    /// <param name="effect">特效</param>
+    private void Drive (int speed, string sound = "咻咻咻", string effect = "灰塵")
+    {
+        print("開車中~" + speed);
+        print("開車音效~" + sound);
+        print("開車特效~" + effect);
+    }
+
+    /// <summary>
+    /// 噸位轉換為公斤
+    /// </summary>
+    /// <returns>轉為公斤的重量資訊</returns>
+    private float KG()
+    {
+        return weight * 1000;
+    }
+
+    /// <summary>
+    /// BMI計算
+    /// </summary>
+    /// <param name="weght">體重</param>
+    /// <param name="height">身高</param>
+    /// <returns></returns>
+    private float BMI(float weght, float height)
+    {
+        return weght / (height * height);
     }
     #endregion
 }
